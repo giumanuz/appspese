@@ -194,31 +194,57 @@ class _HomeState extends State<Home> {
                     physics: cards.length <= 8 ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
                     itemCount: cards.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/personalPayment');
-                          },
-                          title: Text(
-                            cards[index].name,
+                      return Dismissible(
+
+                        direction: DismissDirection.endToStart,
+                        key: Key(cards[index].name),
+                        background: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.red,
                           ),
-                          trailing: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: '${cards[index].amount.toStringAsFixed(2)} €',
-                              ),
-                              textAlign: TextAlign.right,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20.0,
-                                fontFamily: 'Oxygen-Regular',
+                          child: const Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage('assets/${cards[index].photo}'),
+                        ),
+                        onDismissed: (direction) {
+                          setState(() {
+                            cards.removeAt(index);
+                          });
+                        },
+                        child: Card(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/personalPayment');
+                            },
+                            title: Text(
+                              cards[index].name,
+                            ),
+                            trailing: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: '${cards[index].amount.toStringAsFixed(2)} €',
+                                ),
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                  fontFamily: 'Oxygen-Regular',
+                                ),
+                              ),
+                            ),
+                            leading: CircleAvatar(
+                              backgroundImage: AssetImage('assets/${cards[index].photo}'),
+                            ),
                           ),
                         ),
                       );
