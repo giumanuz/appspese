@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:appspese/services/personalCard.dart';
 
@@ -85,11 +86,113 @@ class _HomeState extends State<Home> {
               rowButtonSistmaConti(context),
               const SizedBox(height: 10.0),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
+                      onPressed: () {
+                        showDialog(context: context, builder: (context) => AlertDialog(
+                          title: const Text(
+                              'Aggiungi persona',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontFamily: 'Oxygen-Regular',
+                            ),
+                          ),
+                          content: TextFormField(
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Inserisci il nome della persona da aggiungere',
+                            ),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontFamily: 'Oxygen-Regular',
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                  'Annulla',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 18.0,
+                                fontFamily: 'Oxygen-Regular',
+                              ),
+                            )
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                showDialog(context: context, builder: (context) => AlertDialog(
+                                  title: const Text(
+                                      'Scegli il genere',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18.0,
+                                    fontFamily: 'Oxygen-Regular',
+                                    ),
+                                  ),
+                                  content: Icon(Icons.person_add, color: Colors.grey[400], size: 10.0,),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                          'Annulla',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18.0,
+                                        fontFamily: 'Oxygen-Regular',
+                                      ),
+                                    )
+                                    ),
+                                  ],
+                                )
+                                );
+                              },
+                              child: const Text(
+                                  'Scegli genere',
+                              style: TextStyle(
+                                color: Colors.indigo,
+                                fontSize: 18.0,
+                                fontFamily: 'Oxygen-Regular',
+                              ),
+                            )
+                            ),
+                            TextButton(
+                              onPressed: () {
+
+                              },
+                              child: const Text(
+                                  'Aggiungi',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 18.0,
+                                fontFamily: 'Oxygen-Regular',
+                              ),
+                            )
+                            ),
+                          ],
+
+                        )
+                        );
+                      },
+                      alignment: Alignment.bottomLeft,
+                      icon: Icon(Icons.person_add, color: Colors.grey[400], size: 60.0,)
+                  ),
+                  IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.person_add, color: Colors.grey[400], size: 40.0,)),
+                      icon: Icon(Icons.shopping_cart, color: Colors.grey[400], size: 60.0,)
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.attach_money, color: Colors.grey[400], size: 60.0,)
+                  ),
                 ],
               ),
             ]
@@ -195,7 +298,6 @@ class _HomeState extends State<Home> {
                     itemCount: cards.length,
                     itemBuilder: (context, index) {
                       return Dismissible(
-
                         direction: DismissDirection.endToStart,
                         key: Key(cards[index].name),
                         background: Container(
