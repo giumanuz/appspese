@@ -68,75 +68,107 @@ class _HomeState extends State<Home> {
     ),
   ];
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: myAppBar(context),
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-        child: Column(children: [
-          bilancioName(),
-          const SizedBox(height: 10.0),
-          buildPeopleContainer(context),
-          const SizedBox(height: 10.0),
-          rowButtonSistmaConti(context),
-          const SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    showDialog(
-                            context: context,
-                            builder: (context) => const AddPeoplePopUp())
-                        .then((value) {
-                      if (verificaCondizione(value['name'], cards)) {
-                        setState(() {
-                          cards.add(PersonalCard(
-                              photo: 'man.png',
-                              name: value['name'],
-                              amount: 0.0));
-                        });
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) => const AlertDialog(
-                                  title: Text('Errore'),
-                                  content: Text('Nome già presente'),
-                                ));
-                      }
-                    });
-                  },
-                  alignment: Alignment.bottomLeft,
-                  icon: Icon(
-                    Icons.person_add,
-                    color: Colors.grey[400],
-                    size: 60.0,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.grey[400],
-                    size: 60.0,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.attach_money,
-                    color: Colors.grey[400],
-                    size: 60.0,
-                  )),
-            ],
+      body: Column(children: [
+        const SizedBox(
+          height: 20,
+        ),
+        bilancioName(),
+        const SizedBox(
+          height: 20,
+        ),
+        buildPeopleList(),
+        const SizedBox(
+          height: 20,
+        ),
+        rowButtonSistmaConti(context),
+        threeButtonRow(context),
+        const SizedBox(
+          height: 20,
+        )
+      ]),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ]),
-      )),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monetization_on_rounded),
+            label: 'Spese Totali',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.amber[800],
+      ),
+    );
+  }
+
+  SizedBox threeButtonRow(BuildContext context) {
+    return SizedBox(
+      height: 80,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            width: 70,
+            child: IconButton(
+                onPressed: () {
+                  showDialog(
+                          context: context,
+                          builder: (context) => const AddPeoplePopUp())
+                      .then((value) {
+                    if (verificaCondizione(value['name'], cards)) {
+                      setState(() {
+                        cards.add(PersonalCard(
+                            photo: 'man.png',
+                            name: value['name'],
+                            amount: 0.0));
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                                title: Text('Errore'),
+                                content: Text('Nome già presente'),
+                              ));
+                    }
+                  });
+                },
+                alignment: Alignment.bottomLeft,
+                icon: Icon(
+                  Icons.person_add,
+                  color: Colors.grey[400],
+                  size: 60.0,
+                )),
+          ),
+          SizedBox(
+            width: 70,
+            child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.grey[400],
+                  size: 60.0,
+                )),
+          ),
+          SizedBox(
+            width: 70,
+            child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.attach_money,
+                  color: Colors.grey[400],
+                  size: 60.0,
+                )),
+          ),
+        ],
+      ),
     );
   }
 
@@ -210,32 +242,23 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Container buildPeopleContainer(BuildContext context) {
-    return Container(
-      height: cards.length <= 8
-          ? cards.length * 64.0
-          : MediaQuery.of(context).size.height * 0.578,
-      width: MediaQuery.of(context).size.width * 1.1,
-      decoration: BoxDecoration(
-        // color: Colors.grey[400],
-        borderRadius: BorderRadius.circular(10.0),
+  Expanded buildPeopleList() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: ListView.builder(
+            shrinkWrap: true,
+            physics: cards.length <= 8
+                ? const NeverScrollableScrollPhysics()
+                : const AlwaysScrollableScrollPhysics(),
+            itemCount: cards.length,
+            itemBuilder: (context, index) {
+              return MyCard(
+                  card: cards[index],
+                  onDismissed: (_) => setState(() => cards.removeAt(index)));
+            }),
       ),
-      child: Center(child: buildPeopleList()),
     );
-  }
-
-  ListView buildPeopleList() {
-    return ListView.builder(
-        shrinkWrap: true,
-        physics: cards.length <= 8
-            ? const NeverScrollableScrollPhysics()
-            : const AlwaysScrollableScrollPhysics(),
-        itemCount: cards.length,
-        itemBuilder: (context, index) {
-          return MyCard(
-              card: cards[index],
-              onDismissed: (_) => setState(() => cards.removeAt(index)));
-        });
   }
 
   bool verificaCondizione(value, List<PersonalCard> cards) {
