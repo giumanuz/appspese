@@ -58,7 +58,7 @@ class SpesaTile extends StatelessWidget {
           pagamento.data,
         ),
         trailing: Text(
-          '${pagamento.amount.toStringAsFixed(2)} €',
+          '${(pagamento.amount / 100).toStringAsFixed(2)} €',
           style: TextStyle(
             color: Colors.grey[800],
             fontSize: 20.0,

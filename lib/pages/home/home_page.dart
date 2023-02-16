@@ -61,7 +61,9 @@ class _HomePageState extends State<HomePage> {
     return SizedBox(
       width: 70,
       child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/addExpense');
+          },
           icon: Icon(
             Icons.shopping_cart,
             color: Colors.grey[400],
@@ -90,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     photoSesso = 'women.png';
                   }
                   esempioCards.add(PersonalCard(
-                      photo: photoSesso, name: value['name'], amount: 0.0));
+                      photo: photoSesso, name: value['name'], amount: 0));
                 });
               } else {
                 showDialog(

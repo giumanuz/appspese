@@ -4,6 +4,7 @@ import 'package:appspese/screens/personalPayment.dart';
 import 'package:appspese/screens/settings.dart';
 import 'package:appspese/screens/totalPayment.dart';
 import 'package:appspese/screens/adjustPayment.dart';
+import 'package:appspese/screens/add_expense_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -14,6 +15,7 @@ void main() {
       '/personalPayment': (context) => PersonalPayment(),
       '/totalPayment': (context) => TotalPayment(),
       '/adjustPayment': (context) => AdjustPayment(),
+      '/addExpense': (context) => AddExpenseScreen(),
     },
   ));
 }

@@ -19,7 +19,7 @@ class MyCard extends StatelessWidget {
           card.name,
         ),
         trailing: Text(
-          '${card.amount.toStringAsFixed(2)} €',
+          '${(card.amount / 100).toStringAsFixed(2)} €',
           style: TextStyle(
             color: card.amount < 0 ? Colors.red : Colors.green,
             fontSize: 20.0,
