@@ -1,4 +1,4 @@
-import 'package:appspese/services/personalCard.dart';
+import 'package:appspese/common/personalCard.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
@@ -18,20 +18,14 @@ class MyCard extends StatelessWidget {
         title: Text(
           card.name,
         ),
-        trailing: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.2,
-          child: TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: '${card.amount.toStringAsFixed(2)} €',
-            ),
-            textAlign: TextAlign.right,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-              fontFamily: 'Oxygen-Regular',
-            ),
+        trailing: Text(
+          '${card.amount.toStringAsFixed(2)} €',
+          style: TextStyle(
+            color: card.amount < 0 ? Colors.red : Colors.green,
+            fontSize: 20.0,
+            fontFamily: 'Oxygen-Regular',
           ),
+          textAlign: TextAlign.right,
         ),
         leading: CircleAvatar(
           backgroundImage: AssetImage('assets/${card.photo}'),
@@ -46,7 +40,7 @@ class MyCard extends StatelessWidget {
       key: Key(card.name),
       background: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(6.0),
           color: Colors.red,
         ),
         child: const Align(
