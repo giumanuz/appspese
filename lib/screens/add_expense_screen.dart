@@ -293,7 +293,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
       onSaved: (String? value) {
         int count = 0;
         for (int i = 0; i < value!.length; i++) {

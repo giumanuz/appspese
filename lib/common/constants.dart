@@ -10,12 +10,12 @@ List<PersonalCard> esempioCards = [
   ),
   PersonalCard(
     name: 'Cats',
-    amount: 0,
+    amount: 456,
     photo: 'women.png',
   ),
   PersonalCard(
     name: 'Berlino',
-    amount: 0,
+    amount: -456,
     photo: 'man.png',
   ),
   PersonalCard(
