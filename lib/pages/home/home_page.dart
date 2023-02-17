@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TitlePageWidget('Bilancio'),
+      const TitlePageWidget('Bilancio'),
       buildPeopleList(),
       const SizedBox(
         height: 20,
