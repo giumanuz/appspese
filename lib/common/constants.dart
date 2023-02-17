@@ -10,12 +10,87 @@ List<PersonalCard> esempioCards = [
   ),
   PersonalCard(
     name: 'Cats',
-    amount: 000,
+    amount: 0,
     photo: 'women.png',
   ),
   PersonalCard(
     name: 'Berlino',
-    amount: 000,
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'VMC',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'Alessio',
+    amount: 0,
+    photo: 'women.png',
+  ),
+  PersonalCard(
+    name: 'Riccardo',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'EdoTM',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'Daniele',
+    amount: 0,
+    photo: 'women.png',
+  ),
+  PersonalCard(
+    name: 'Er Capretta',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'Franko',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'Kratos',
+    amount: 0,
+    photo: 'women.png',
+  ),
+  PersonalCard(
+    name: 'La Tigre',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'a',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 's',
+    amount: 0,
+    photo: 'women.png',
+  ),
+  PersonalCard(
+    name: 'd',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'f',
+    amount: 0,
+    photo: 'man.png',
+  ),
+  PersonalCard(
+    name: 'g',
+    amount: 0,
+    photo: 'women.png',
+  ),
+  PersonalCard(
+    name: 'h',
+    amount: 0,
     photo: 'man.png',
   ),
 ];
@@ -42,13 +117,13 @@ List<Payment> esempiPayments = [
 ];
 
 Map<String, IconData> categoriesToIcon = {
-  // 'Discoteca': Icons.music_note,
-  // 'Porno': Icons.accessible_outlined,
-  // 'Spesa': Icons.shopping_cart,
-  // 'Telefono': Icons.phone,
-  // 'Trasporto': Icons.airplanemode_active,
-  // 'Casa': Icons.home,
-  // 'Ristorante': Icons.restaurant,
-  // 'Regalo': Icons.card_giftcard,
-  // 'Pagamento': Icons.payment
+  'Discoteca': Icons.music_note,
+  'Porno': Icons.accessible_outlined,
+  'Spesa': Icons.shopping_cart,
+  'Telefono': Icons.phone,
+  'Trasporto': Icons.airplanemode_active,
+  'Casa': Icons.home,
+  'Ristorante': Icons.restaurant,
+  'Regalo': Icons.card_giftcard,
+  'Pagamento': Icons.payment
 };
