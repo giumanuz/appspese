@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:appspese/common/custom_dialog.dart';
+
 class AddPeoplePopUp extends StatefulWidget {
   const AddPeoplePopUp({Key? key}) : super(key: key);
 
@@ -65,25 +67,26 @@ class _AddPeoplePopUpState extends State<AddPeoplePopUp> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text(
-        'Aggiungi persona',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 18.0,
-          fontFamily: 'Oxygen-Regular',
-        ),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [inputFormAddPerson(), choosingGenrePerson()],
-      ),
-      alignment: Alignment.center,
-      actions: [
-        annullaButton(context),
-        aggiungiButton(),
-      ],
-    );
+    return CustomDialog();
+    //   AlertDialog(
+    //   title: const Text(
+    //     'Aggiungi persona',
+    //     style: TextStyle(
+    //       color: Colors.black,
+    //       fontSize: 18.0,
+    //       fontFamily: 'Oxygen-Regular',
+    //     ),
+    //   ),
+    //   content: Column(
+    //     mainAxisSize: MainAxisSize.min,
+    //     children: [inputFormAddPerson(), choosingGenrePerson()],
+    //   ),
+    //   alignment: Alignment.center,
+    //   actions: [
+    //     annullaButton(context),
+    //     aggiungiButton(),
+    //   ],
+    // );
   }
 
   Row choosingGenrePerson() {
