@@ -21,14 +21,14 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            color: Colors.black.withOpacity(0.01),
-            alignment: Alignment.center,
+        backgroundColor: Colors.transparent,
+        body: Stack(children: [
+          GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(color: Colors.black.withOpacity(0.01))),
+          Center(
             child: Container(
               width: MediaQuery.of(context).size.width - 40,
               height: 250,
@@ -194,7 +194,7 @@ class _CustomDialogState extends State<CustomDialog> {
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        ]));
   }
 }

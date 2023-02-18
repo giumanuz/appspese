@@ -59,22 +59,23 @@ class _CustomButtonTestState extends State<CustomButtonTest> {
 }
 
 class MenuItem {
+  final GlobalKey state = GlobalKey();
   final String text;
   final IconData icon;
 
-  const MenuItem({
+  MenuItem({
     required this.text,
     required this.icon,
   });
 }
 
 class MenuItems extends StatelessWidget {
-  static List<MenuItem> firstItems = const [
+  static List<MenuItem> firstItems = [
     MenuItem(text: 'Vacanza in Sardegna', icon: Icons.sunny),
     MenuItem(text: "Vacanza in Giappo", icon: Icons.sunny),
     MenuItem(text: 'Vacanza a Gallipoli', icon: Icons.sunny),
   ];
-  static List<MenuItem> secondItems = const [
+  static List<MenuItem> secondItems = [
     MenuItem(text: 'Aggiungi viaggio', icon: Icons.add_circle_outline),
     MenuItem(text: 'Settings', icon: Icons.settings),
     MenuItem(text: 'Log Out', icon: Icons.logout),
@@ -95,26 +96,33 @@ class MenuItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);
-    return Container(
-        width: 180,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(item.icon, color: Colors.white, size: 20)),
-            SizedBox(
-              width: 150,
-              child: Text(
-                item.text,
-                maxLines: 1,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                    color: Colors.white, overflow: TextOverflow.ellipsis),
-              ),
-            ),
-            const Spacer()
-          ],
-        ));
+    return Dismissible(
+        key: item.state,
+        onDismissed: (onDismissed) {
+          print("dismissed");
+        },
+        child: Container(
+            width: 180,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(item.icon, color: Colors.white, size: 20)),
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    item.text,
+                    maxLines: 1,
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                        color: Colors.white, overflow: TextOverflow.ellipsis),
+                  ),
+                ),
+                const Spacer()
+                // ValueNotifier(_value)
+                // ValueListenableBuilder(valueListenable: valueListenable, builder: builder)
+              ],
+            )));
   }
 }
