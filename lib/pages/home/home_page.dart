@@ -29,11 +29,11 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
-  SizedBox threeButtonRow(BuildContext context) {
-    return SizedBox(
-      height: 80,
+  Container threeButtonRow(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 10),
+      height: 60,
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           addPersonButton(context),
@@ -46,36 +46,40 @@ class _HomePageState extends State<HomePage> {
 
   SizedBox addPaymentButton() {
     return SizedBox(
-      width: 70,
+      width: 60,
       child: IconButton(
+          iconSize: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           onPressed: () {},
           icon: Icon(
             Icons.attach_money,
             color: Colors.grey[400],
-            size: 60.0,
           )),
     );
   }
 
   SizedBox addExpenseButton() {
     return SizedBox(
-      width: 70,
+      width: 60,
       child: IconButton(
+          iconSize: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           onPressed: () {
             Navigator.pushNamed(context, '/addExpense');
           },
           icon: Icon(
             Icons.shopping_cart,
             color: Colors.grey[400],
-            size: 60.0,
           )),
     );
   }
 
   SizedBox addPersonButton(BuildContext context) {
     return SizedBox(
-      width: 70,
+      width: 60,
       child: IconButton(
+          iconSize: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           onPressed: () {
             showDialog(
                 context: context,
@@ -104,11 +108,10 @@ class _HomePageState extends State<HomePage> {
               }
             });
           },
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.center,
           icon: Icon(
             Icons.person_add,
             color: Colors.grey[400],
-            size: 60.0,
           )),
     );
   }
