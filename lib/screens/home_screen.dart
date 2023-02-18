@@ -20,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       appBar: const HomeScreenAppBar('Vacanza in Sardegna'),
-      drawer: myDrawer(context),
       body: indexPage == 0 ? const HomePage() : const SpeseTotaliPage(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {

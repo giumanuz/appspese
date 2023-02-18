@@ -58,42 +58,7 @@ List<PersonalCard> esempioCards = [
     name: 'Kratos',
     amount: 0,
     photo: 'women.png',
-  ),
-  PersonalCard(
-    name: 'La Tigre',
-    amount: 0,
-    photo: 'man.png',
-  ),
-  PersonalCard(
-    name: 'a',
-    amount: 0,
-    photo: 'man.png',
-  ),
-  PersonalCard(
-    name: 's',
-    amount: 0,
-    photo: 'women.png',
-  ),
-  PersonalCard(
-    name: 'd',
-    amount: 0,
-    photo: 'man.png',
-  ),
-  PersonalCard(
-    name: 'f',
-    amount: 0,
-    photo: 'man.png',
-  ),
-  PersonalCard(
-    name: 'g',
-    amount: 0,
-    photo: 'women.png',
-  ),
-  PersonalCard(
-    name: 'h',
-    amount: 0,
-    photo: 'man.png',
-  ),
+  )
 ];
 
 List<Payment> esempiPayments = [

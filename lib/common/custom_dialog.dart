@@ -67,6 +67,11 @@ class _CustomDialogState extends State<CustomDialog> {
                     ),
                     border: InputBorder.none,
                     hintText: 'Inserisci il nome',
+                    hintStyle: const TextStyle(
+                      color: Color(0xFF424242),
+                      fontSize: 20.0,
+                      fontFamily: 'Oxygen-Regular',
+                    ),
                     alignLabelWithHint: true,
                     contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     constraints: const BoxConstraints(
@@ -100,11 +105,11 @@ class _CustomDialogState extends State<CustomDialog> {
                     'Seleziona il genere',
                     style: TextStyle(
                       color: Color(0xFF424242),
-                      fontSize: 18.0,
+                      fontSize: 20.0,
                       fontFamily: 'Oxygen-Regular',
                     ),
                   ),
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_drop_down,
                     color: Color(0xFF424242),
                   ),
@@ -113,6 +118,8 @@ class _CustomDialogState extends State<CustomDialog> {
                   buttonPadding: const EdgeInsets.only(left: 20, right: 10),
                   dropdownDecoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey[200],
+                    shape: BoxShape.rectangle,
                   ),
                   items: genderItems
                       .map((item) => DropdownMenuItem<String>(

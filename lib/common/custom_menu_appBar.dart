@@ -10,51 +10,72 @@ class CustomButtonTest extends StatefulWidget {
   State<CustomButtonTest> createState() => _CustomButtonTestState();
 }
 
-class _CustomButtonTestState extends State<CustomButtonTest> {
+class ShowMenuCustom extends StatelessWidget {
+  const ShowMenuCustom({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton2(
-            customButton: const Icon(
-              Icons.list,
-              size: 46,
-              color: Color(0xFF424242),
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ...MenuItems.firstItems
+                .map((item) => buildCustomMenuItem(item))
+                .toList(),
+            const SizedBox(
+              height: 10,
             ),
-            //customItemsHeights: [],
-            items: [
-              // MenuItems.firstItems
-              //     .map(
-              //       (item) => DropdownMenuItem(
-              //         value: item,
-              //         child: MenuItems.buildItem(item),
-              //       ),
-              //     )
-              //     .toList(),
-              // const DropdownMenuItem(enabled: false, child: Divider()),
-              // MenuItems.secondItems
-              //     .map((item) => DropdownMenuItem(
-              //           value: item,
-              //           child: MenuItems.buildItem(item),
-              //         ))
-              //     .toList(),
-            ],
-            onChanged: (value) {
-              MenuItems.onChanged(context, value as MenuItem);
-            },
-            itemHeight: 48,
-            itemPadding: const EdgeInsets.only(left: 16, right: 16),
-            dropdownWidth: 160,
-            dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
-            dropdownDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.grey[600],
-            ),
-            dropdownElevation: 8,
-            offset: const Offset(0, 8),
-          ),
+            ...MenuItems.secondItems
+                .map((item) => buildCustomMenuItem(item))
+                .toList(),
+          ],
         ),
+      ),
+    );
+  }
+
+  buildCustomMenuItem(MenuItem item) {
+    return SizedBox(
+      height: 50,
+      child: Row(
+        children: [
+          Icon(item.icon, color: const Color(0xFFEEEEEE), size: 15),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            item.text,
+            style: TextStyle(
+              color: Colors.grey[800],
+              fontFamily: 'Oxygen-Regular',
+              fontSize: 15,
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CustomButtonTestState extends State<CustomButtonTest> {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return ShowMenuCustom();
+          },
+        );
+      },
+      icon: Icon(
+        Icons.list,
+        color: Colors.grey[800],
+        size: 30,
       ),
     );
   }

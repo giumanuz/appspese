@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:appspese/common/custom_menu_appBar.dart';
+
 class HomeScreenAppBar extends StatelessWidget with PreferredSizeWidget {
   final String holidayName;
 
@@ -15,13 +17,7 @@ class HomeScreenAppBar extends StatelessWidget with PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: Colors.grey[400],
       elevation: 0.0,
-      leading: IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: const Icon(Icons.menu),
-        color: Colors.grey[800],
-      ),
+      leading: CustomButtonTest(),
     );
   }
 

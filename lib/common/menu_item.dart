@@ -21,7 +21,7 @@ class MenuItems {
     MenuItem(text: 'Log Out', icon: Icons.logout),
   ];
 
-  static Widget buildItem(MenuItem item) {
+  static Widget costruisciItem(MenuItem item) {
     return Row(
       children: [
         Icon(item.icon, color: const Color(0xFFEEEEEE), size: 22),

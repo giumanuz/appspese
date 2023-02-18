@@ -38,7 +38,6 @@ class _CustomDropdownState extends State<CustomDropdown> {
   }
 
   void findDropdownData() {
-    var ciao = actionKey.globalPaintBounds;
     height = ciao!.height;
     width = ciao.width;
     xPosition = ciao.topLeft.dx;
