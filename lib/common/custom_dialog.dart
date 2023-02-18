@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class CustomDialog extends StatefulWidget {
   const CustomDialog({Key? key}) : super(key: key);
@@ -8,7 +9,14 @@ class CustomDialog extends StatefulWidget {
 }
 
 class _CustomDialogState extends State<CustomDialog> {
+  final List<String> genderItems = [
+    'Maschio',
+    'Femmina',
+  ];
+
   final addPersoName = TextEditingController();
+  String addedPerson = '';
+  String selectedGender = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,64 +48,102 @@ class _CustomDialogState extends State<CustomDialog> {
               const SizedBox(
                 height: 20,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      addPersoName.clear();
-                    },
-                    icon: const Icon(Icons.clear),
-                    color: Color(0xFFE57373),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 3, 20, 20),
+                child: TextFormField(
+                  onTapOutside: (event) {
+                    FocusScope.of(context).unfocus();
+                  },
+                  onChanged: (text) {
+                    addedPerson = text;
+                  },
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        addPersoName.clear();
+                      },
+                      icon: const Icon(Icons.clear),
+                      color: Color(0xFFE57373),
+                    ),
+                    border: InputBorder.none,
+                    hintText: 'Inserisci il nome',
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    constraints: const BoxConstraints(
+                      maxHeight: 30,
+                    ),
+                    counterStyle: const TextStyle(
+                      color: Color(0xFF424242),
+                      fontSize: 20.0,
+                      fontFamily: 'Oxygen-Regular',
+                    ),
                   ),
-                  border: InputBorder.none,
-                  hintText: 'Inserisci il nome',
-                  alignLabelWithHint: true,
-                  contentPadding: EdgeInsets.only(left: 10),
-                  constraints: BoxConstraints(
-                    maxHeight: 30,
-                  ),
-                  counterStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
+                  controller: addPersoName,
+                  style: const TextStyle(
+                    color: Color(0xFF424242),
+                    fontSize: 20.0,
                     fontFamily: 'Oxygen-Regular',
                   ),
                 ),
-                controller: addPersoName,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                  fontFamily: 'Oxygen-Regular',
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                child: DropdownButtonFormField2(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  isExpanded: true,
+                  hint: const Text(
+                    'Seleziona il genere',
+                    style: TextStyle(
+                      color: Color(0xFF424242),
+                      fontSize: 18.0,
+                      fontFamily: 'Oxygen-Regular',
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: Color(0xFF424242),
+                  ),
+                  iconSize: 30,
+                  buttonHeight: 60,
+                  buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+                  dropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  items: genderItems
+                      .map((item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(item,
+                                style: const TextStyle(
+                                  color: Color(0xFF424242),
+                                  fontSize: 20.0,
+                                  fontFamily: 'Oxygen-Regular',
+                                )),
+                          ))
+                      .toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Per favore, seleziona il genere';
+                    }
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      selectedGender = value.toString();
+                    });
+                  },
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Text(
-                    'M',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: 'Oxygen-Regular',
-                    ),
-                  ),
-                  Text(
-                    'F',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: 'Oxygen-Regular',
-                    ),
-                  ),
-                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         'Annulla',
                         style: TextStyle(
@@ -107,7 +153,14 @@ class _CustomDialogState extends State<CustomDialog> {
                         ),
                       )),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (addedPerson != '' && selectedGender != '') {
+                          Navigator.pop(context, {
+                            'name': addedPerson,
+                            'sesso': selectedGender == 'Maschio' ? 0 : 1,
+                          });
+                        }
+                      },
                       child: const Text(
                         'Aggiungi',
                         style: TextStyle(
