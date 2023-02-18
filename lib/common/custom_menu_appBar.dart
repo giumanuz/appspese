@@ -15,22 +15,43 @@ class ShowMenuCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int heightSingleItem = 60;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            ...MenuItems.firstItems
-                .map((item) => buildCustomMenuItem(item))
-                .toList(),
-            const SizedBox(
-              height: 10,
+        padding: const EdgeInsets.fromLTRB(20, 56, 20, 0),
+        child: Container(
+          height: (MenuItems.secondItems.length + MenuItems.firstItems.length) *
+                  heightSingleItem +
+              10,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey[300]!,
+              width: 3,
             ),
-            ...MenuItems.secondItems
-                .map((item) => buildCustomMenuItem(item))
-                .toList(),
-          ],
+            shape: BoxShape.rectangle,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.grey[200]!,
+                Colors.grey[300]!,
+              ],
+            ),
+          ),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Column(
+            children: [
+              ...MenuItems.firstItems
+                  .map((item) => buildCustomMenuItem(item))
+                  .toList(),
+              ...MenuItems.secondItems
+                  .map((item) => buildCustomMenuItem(item))
+                  .toList(),
+            ],
+          ),
         ),
       ),
     );

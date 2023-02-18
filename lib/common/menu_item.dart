@@ -17,26 +17,10 @@ class MenuItems {
     MenuItem(text: 'Vacanza a Gallipoli', icon: Icons.sunny),
   ];
   static const List<MenuItem> secondItems = [
+    MenuItem(text: 'Aggiungi viaggio', icon: Icons.add_circle_outline),
     MenuItem(text: 'Settings', icon: Icons.settings),
     MenuItem(text: 'Log Out', icon: Icons.logout),
   ];
-
-  static Widget costruisciItem(MenuItem item) {
-    return Row(
-      children: [
-        Icon(item.icon, color: const Color(0xFFEEEEEE), size: 22),
-        const SizedBox(
-          width: 10,
-        ),
-        Text(
-          item.text,
-          style: const TextStyle(
-            color: Color(0xFFEEEEEE),
-          ),
-        ),
-      ],
-    );
-  }
 
   static onChanged(BuildContext context, MenuItem item) {
     if (item.text == 'Log Out') {
