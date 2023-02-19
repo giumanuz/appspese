@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:appspese/common/personalCard.dart';
 import 'package:appspese/screens/home_screen_app_bar.dart';
 import 'package:appspese/pages/home/home_page.dart';
+import 'package:appspese/common/menu_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,7 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[800],
-      appBar: const HomeScreenAppBar('Vacanza in Sardegna'),
+      appBar: AppBar(
+        title: textHolidayName('Bella zio'),
+        centerTitle: true,
+        backgroundColor: Colors.grey[400],
+        elevation: 0.0,
+        leading: CustomButtonTest(),
+      ),
       body: indexPage == 0 ? const HomePage() : const SpeseTotaliPage(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index) {
@@ -41,6 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: indexPage,
         selectedItemColor: Colors.indigo[500],
         unselectedItemColor: Colors.grey[800],
+      ),
+    );
+  }
+
+  Text textHolidayName(holidayName) {
+    return Text(
+      holidayName,
+      style: TextStyle(
+        color: Colors.grey[800],
+        fontSize: 20.0,
+        fontFamily: 'Oxygen-Regular',
       ),
     );
   }

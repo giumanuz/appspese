@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
   SizedBox addPaymentButton() {
     return SizedBox(
       width: 60,

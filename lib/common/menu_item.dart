@@ -41,9 +41,6 @@ class _CustomButtonTestState extends State<CustomButtonTest> {
               value: item,
               child: MenuItems(
                 item,
-                // onDismissed: (_) =>
-                //     setState(() => MenuItems.firstItems.remove(item))
-                //TODO: chiedere a Valerio perche non fonunzia
               ),
             ),
           ),
@@ -108,7 +105,8 @@ class MenuItems extends StatefulWidget {
 class _MenuItemsState extends State<MenuItems> {
   @override
   Widget build(BuildContext context) {
-    Widget menuCardWidget = Container(
+
+    return Container(
         width: 180,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,29 +128,5 @@ class _MenuItemsState extends State<MenuItems> {
           ],
         ));
 
-    if (MenuItems.secondItems.contains(widget.item)) return menuCardWidget;
-
-    return Dismissible(
-      direction: DismissDirection.endToStart,
-      key: Key(widget.item.text),
-      background: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6.0),
-          color: Colors.red,
-        ),
-        child: const Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-            child: Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-      onDismissed: widget.onDismissed,
-      child: menuCardWidget,
-    );
   }
 }

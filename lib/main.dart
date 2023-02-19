@@ -8,7 +8,7 @@ import 'package:appspese/screens/add_expense_screen.dart';
 
 void main() {
   runApp(MaterialApp(
-    theme: ThemeData(backgroundColor: Colors.grey[800]),
+    theme: ThemeData.from(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
     initialRoute: '/home',
     routes: {
       '/home': (context) => HomeScreen(),
