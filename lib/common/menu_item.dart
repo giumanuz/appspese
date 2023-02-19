@@ -30,14 +30,21 @@ class _CustomButtonTestState extends State<CustomButtonTest> {
           ...MenuItems.firstItems.map(
             (item) => DropdownMenuItem<MenuItem>(
               value: item,
-              child: MenuItems(item),
+              child: MenuItems(
+                item,
+              ),
             ),
           ),
           const DropdownMenuItem<Divider>(enabled: false, child: Divider()),
           ...MenuItems.secondItems.map(
             (item) => DropdownMenuItem<MenuItem>(
               value: item,
-              child: MenuItems(item),
+              child: MenuItems(
+                item,
+                // onDismissed: (_) =>
+                //     setState(() => MenuItems.firstItems.remove(item))
+                //TODO: chiedere a Valerio perche non fonunzia
+              ),
             ),
           ),
         ],
@@ -69,10 +76,10 @@ class MenuItem {
   });
 }
 
-class MenuItems extends StatelessWidget {
+class MenuItems extends StatefulWidget {
   static List<MenuItem> firstItems = [
-    MenuItem(text: 'Vacanza in Sardegna', icon: Icons.sunny),
-    MenuItem(text: "Vacanza in Giappo", icon: Icons.sunny),
+    MenuItem(text: 'Sardegna Gang', icon: Icons.sunny),
+    MenuItem(text: "GiappoBro", icon: Icons.sunny),
     MenuItem(text: 'Vacanza a Gallipoli', icon: Icons.sunny),
   ];
   static List<MenuItem> secondItems = [
@@ -81,7 +88,8 @@ class MenuItems extends StatelessWidget {
     MenuItem(text: 'Log Out', icon: Icons.logout),
   ];
   final MenuItem item;
-  const MenuItems(this.item, {super.key});
+  final DismissDirectionCallback? onDismissed;
+  const MenuItems(this.item, {super.key, this.onDismissed});
 
   static onChanged(BuildContext context, MenuItem item) {
     if (item.text == 'Log Out') {
@@ -94,35 +102,57 @@ class MenuItems extends StatelessWidget {
   }
 
   @override
+  State<MenuItems> createState() => _MenuItemsState();
+}
+
+class _MenuItemsState extends State<MenuItems> {
+  @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
+    Widget menuCardWidget = Container(
+        width: 180,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(widget.item.icon, color: Colors.white, size: 20)),
+            SizedBox(
+              width: 150,
+              child: Text(
+                widget.item.text,
+                maxLines: 1,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                    color: Colors.white, overflow: TextOverflow.ellipsis),
+              ),
+            ),
+            const Spacer()
+          ],
+        ));
+
+    if (MenuItems.secondItems.contains(widget.item)) return menuCardWidget;
+
     return Dismissible(
-        key: item.state,
-        onDismissed: (onDismissed) {
-          print("dismissed");
-        },
-        child: Container(
-            width: 180,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(item.icon, color: Colors.white, size: 20)),
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    item.text,
-                    maxLines: 1,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(
-                        color: Colors.white, overflow: TextOverflow.ellipsis),
-                  ),
-                ),
-                const Spacer()
-                // ValueNotifier(_value)
-                // ValueListenableBuilder(valueListenable: valueListenable, builder: builder)
-              ],
-            )));
+      direction: DismissDirection.endToStart,
+      key: Key(widget.item.text),
+      background: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6.0),
+          color: Colors.red,
+        ),
+        child: const Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+            child: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      onDismissed: widget.onDismissed,
+      child: menuCardWidget,
+    );
   }
 }

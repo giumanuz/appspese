@@ -1,10 +1,8 @@
 import 'package:appspese/common/constants.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:appspese/common/drop_down_box.dart';
 import 'package:appspese/common/personalCard.dart';
 import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class AddExpenseScreen extends StatefulWidget {
