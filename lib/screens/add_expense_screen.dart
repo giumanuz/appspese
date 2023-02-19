@@ -2,7 +2,7 @@ import 'package:appspese/common/constants.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:appspese/common/personalCard.dart';
-import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
+import 'package:appspese/common/spinner_date_time_picker.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 class AddExpenseScreen extends StatefulWidget {
@@ -13,23 +13,23 @@ class AddExpenseScreen extends StatefulWidget {
 }
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
-  List<String> listaNomi = [];
-  riempiLista() {
-    for (int i = 0; i < esempioCards.length; i++) {
-      listaNomi.add(esempioCards[i].name);
-    }
-  }
 
-  late String choosedFrom;
+  String choosedFrom = esempioCards[0].name;
   final amountString = TextEditingController();
   int amount = 0;
   String category = 'Discoteca';
-  String data = '';
+  late String data;
   DateTime today = DateTime.now();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     data = '${today.day}/${today.month}/${today.year}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
 
     return Scaffold(
       backgroundColor: Colors.grey[800],
@@ -67,119 +67,266 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         ],
       ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Form(
-            child: Center(
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-                  child: DropdownButtonFormField2(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Form(
+          child: Column(
+            children: [
+              const SizedBox(height: 40.0),
+              FormField(
+                builder: (FormFieldState state) {
+                  return InputDecorator(
                     decoration: InputDecoration(
-                      //Add isDense true and zero Padding.
-                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                      labelText: 'Seleziona il nome',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[400],
+                        fontFamily: 'Oxygen-Regular',
+                        fontSize: 20.0,
                       ),
-                      //Add more decoration as you want here
-                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                      icon: const Icon(Icons.person, color: Color(0xFFE57373)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey[400]!),
+                        gapPadding: 10.0,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
-                    isExpanded: true,
-                    hint: const Text(
-                      'Selezione il pagante',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    icon: const Icon(
-                      Icons.person,
-                      color: Colors.black45,
-                    ),
-                    iconSize: 30,
-                    buttonHeight: 60,
-                    buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                    dropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    items: esempioCards
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.name,
-                              child: Text(
-                                item.name,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                ),
+                    isEmpty: choosedFrom == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        isDense: true,
+                        dropdownColor: Colors.grey[600],
+                        //colore sfondo popup
+                        iconSize: 30.0,
+                        iconEnabledColor: Color(0xFFE57373),
+                        enableFeedback: true,
+                        elevation: 10,
+                        itemHeight: 70.0,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        items: esempioCards.map((PersonalCard card) {
+                          return DropdownMenuItem(
+                            key: Key(card.name),
+                            value: card.name,
+                            alignment: Alignment.centerLeft,
+                            enabled: true,
+                            child: Text(
+                              card.name,
+                              style: TextStyle(
+                                color: Colors.grey[200],
+                                fontFamily: 'Oxygen-Regular',
+                                fontSize: 23.0,
                               ),
-                            ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Per favore, seleziona il pagante.';
-                      }
-                    },
-                    onChanged: (value) {
-                      //Do something when changing the item if you want.
-                    },
-                    onSaved: (value) {
-                      choosedFrom = value.toString();
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-                  child: DropdownButtonFormField2(
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            choosedFrom = value!;
+                          });
+                        },
+                        value: choosedFrom,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 40.0),
+              addImportBox(),
+              const SizedBox(height: 40.0),
+              FormField(
+                builder: (FormFieldState state) {
+                  return InputDecorator(
                     decoration: InputDecoration(
-                      //Add isDense true and zero Padding.
-                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                      labelText: 'Seleziona la categoria',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[400],
+                        fontFamily: 'Oxygen-Regular',
+                        fontSize: 20.0,
                       ),
-                      //Add more decoration as you want here
-                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                      icon:
+                      const Icon(Icons.category, color: Color(0xFFE57373)),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey[400]!),
+                        gapPadding: 10.0,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                     ),
-                    isExpanded: true,
-                    hint: const Text(
-                      'Seleziona la categoria',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.black45,
-                    ),
-                    iconSize: 30,
-                    buttonHeight: 60,
-                    buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                    dropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    items: esempioCards
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item.name,
-                              child: Text(
-                                item.name,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                ),
+                    isEmpty: category == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        isDense: true,
+                        dropdownColor: Colors.grey[600],
+                        //colore sfondo popup
+                        iconSize: 30.0,
+                        iconEnabledColor: Color(0xFFE57373),
+                        enableFeedback: true,
+                        elevation: 10,
+                        itemHeight: 70.0,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        items: categoriesToIcon.keys.map((String categoryName) {
+                          return DropdownMenuItem(
+                            value: categoryName,
+                            alignment: Alignment.centerLeft,
+                            enabled: true,
+                            child: Text(
+                              categoryName,
+                              style: TextStyle(
+                                color: Colors.grey[200],
+                                fontFamily: 'Oxygen-Regular',
+                                fontSize: 23.0,
                               ),
-                            ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please select gender.';
-                      }
-                    },
-                    onChanged: (value) {
-                      //Do something when changing the item if you want.
-                    },
-                    onSaved: (value) {
-                      choosedFrom = value.toString();
-                    },
-                  ),
-                ),
-              ]),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            category = value!;
+                          });
+                        },
+                        value: category,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 40.0),
+              selectDateBox(context),
+              const SizedBox(height: 40.0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  FormField<dynamic> selectDateBox(BuildContext context) {
+    return FormField(
+      builder: (FormFieldState state) {
+        return InputDecorator(
+          decoration: InputDecoration(
+            labelText: 'Seleziona la data',
+            labelStyle: TextStyle(
+              color: Colors.grey[400],
+              fontFamily: 'Oxygen-Regular',
+              fontSize: 20.0,
             ),
-          )),
+            icon: const Icon(Icons.date_range, color: Color(0xFFE57373)),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey[400]!),
+              gapPadding: 10.0,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              alignment: Alignment.center,
+              backgroundColor: Colors.grey[700],
+              animationDuration: const Duration(milliseconds: 500),
+              elevation: 10.0,
+              foregroundColor: Colors.grey[200],
+              padding:
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+              textStyle: const TextStyle(
+                fontSize: 20.0,
+                fontFamily: 'Oxygen-Regular',
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      backgroundColor: Colors.grey[400],
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      insetAnimationCurve: Curves.bounceIn,
+                      insetPadding: const EdgeInsets.symmetric(vertical: 20.0),
+                      shadowColor: Colors.grey[800],
+                      child: SpinnerDateTimePicker(
+                        minimumDate: DateTime(today.year - 100, 12, 31),
+                        initialDateTime: DateTime.now(),
+                        maximumDate: DateTime.now(),
+                        didSetTime: (DateTime dateChoosen) {
+                          String giorno = dateChoosen.day.toString();
+                          String mese = dateChoosen.month.toString();
+                          String anno = dateChoosen.year.toString();
+                          setState(() {
+                            data = '$giorno/$mese/$anno';
+                          });
+                        },
+                      ),
+                    );
+                  });
+            },
+            child: Text(data),
+          ),
+        );
+      },
+    );
+  }
+
+  TextFormField addImportBox() {
+    return TextFormField(
+      style: TextStyle(
+        color: Colors.grey[200],
+        fontFamily: 'Oxygen-Regular',
+        fontSize: 20.0,
+      ),
+      controller: amountString,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          onPressed: () {
+            amountString.clear();
+          },
+          icon: const Icon(Icons.clear),
+          color: Color(0xFFE57373),
+        ),
+        labelText: 'Inserisci l\'importo',
+        labelStyle: TextStyle(
+          color: Colors.grey[400],
+          fontFamily: 'Oxygen-Regular',
+          fontSize: 20.0,
+        ),
+        icon: const Icon(Icons.attach_money, color: Color(0xFFE57373)),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey[400]!),
+          gapPadding: 10.0,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
+      onSaved: (String? value) {
+        int count = 0;
+        for (int i = 0; i < value!.length; i++) {
+          if (value[i] == '.' || value[i] == ',') {
+            count = value.length - i - 1;
+            break;
+          }
+        }
+        String valueWithoutDot = value!.replaceAll('.', '');
+        valueWithoutDot = valueWithoutDot.replaceAll(',', '');
+        amount = int.parse(valueWithoutDot);
+        if (count == 1) {
+          amount *= 10;
+        } else if (count == 0) {
+          amount *= 100;
+        }
+      },
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return 'Inserisci un importo'; //TODO: aggiungi messaggio di errore
+        }
+        return null;
+      },
     );
   }
 }

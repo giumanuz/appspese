@@ -4,18 +4,21 @@ import 'package:appspese/common/menu_item.dart';
 class HomeScreenAppBar extends StatelessWidget with PreferredSizeWidget {
   final String holidayName;
 
-  const HomeScreenAppBar(this.holidayName, {Key? key}) : super(key: key);
+  HomeScreenAppBar(this.holidayName, {Key? key}) : super(key: key);
 
-  @override
+  AppBar? appBar; 
+  
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    appBar = AppBar(
       title: textHolidayName(),
       centerTitle: true,
       backgroundColor: Colors.grey[400],
       elevation: 0.0,
       leading: CustomButtonTest(),
     );
+    
+    return appBar!;
   }
 
   Text textHolidayName() {
@@ -31,5 +34,6 @@ class HomeScreenAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => throw UnimplementedError();
+  Size get preferredSize =>  appBar!.preferredSize;
+  
 }
